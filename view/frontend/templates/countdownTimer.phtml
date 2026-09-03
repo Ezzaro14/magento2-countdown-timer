@@ -1,0 +1,80 @@
+<?php
+declare(strict_types=1);
+
+use Hyva\Theme\Model\ViewModelRegistry;
+use Hyva\Theme\ViewModel\HeroiconsOutline;
+use Magento\Framework\Escaper;
+use Magento\Framework\View\Element\Template;
+use Ezzar\CountdownTimer\ViewModel\CountdownTimer;
+
+/** @var Escaper $escaper */
+/** @var Template $block */
+/** @var ViewModelRegistry $viewModels */
+
+$heroicons = $viewModels->require(HeroiconsOutline::class);
+$nb = $viewModels->require(CountdownTimer::class);
+
+if (! $nb->isEnabled()) {
+    return;
+}
+
+$endAtMs = $nb->getEndAtMs();
+$labelText = $nb->getLabel() ?: (string) __('Sale ends in');
+$linkUrl = $nb->getLinkUrl();
+$isLink = $linkUrl !== '';
+?>
+
+<div
+  class="bg-slate-900 text-white text-sm leading-5 font-semibold text-center p-2"
+  x-data="{
+      end: <?= (int) $endAtMs ?>,
+      label: '',
+      expired: false,
+      timer: null,
+      tick() {
+          const remaining = this.end - Date.now();
+
+          if (remaining <= 0) {
+              this.expired = true;
+              this.label = '';
+              if (this.timer) clearInterval(this.timer);
+              return;
+          }
+
+          const total = Math.floor(remaining / 1000);
+          const d = Math.floor(total / 86400);
+          const h = Math.floor((total % 86400) / 3600);
+          const m = Math.floor((total % 3600) / 60);
+          const s = total % 60;
+
+          const pad = n => String(n).padStart(2, '0');
+          this.label = `${d}d ${pad(h)}h ${pad(m)}m ${pad(s)}s`;
+      }
+  }"
+  x-init="tick(); timer = setInterval(() => tick(), 1000)"
+  x-show="!expired"
+  x-cloak
+>
+    <?php if ($isLink): ?>
+        <a href="<?= $escaper->escapeUrl($linkUrl) ?>" class="hover:underline inline-flex items-center gap-1">
+            <span>
+                <?= $escaper->escapeHtml($labelText) ?>
+                <span class="tabular-nums" x-text="label"></span>
+            </span>
+
+            <?= $heroicons->chevronRightHtml(
+                'inline-block align-text-bottom text-slate-300',
+                16,
+                16,
+                ['aria-hidden' => 'true', 'stroke-width' => '4']
+            ); ?>
+        </a>
+    <?php else: ?>
+        <span class="inline-flex items-center gap-1">
+            <span>
+                <?= $escaper->escapeHtml($labelText) ?>
+                <span class="tabular-nums" x-text="label"></span>
+            </span>
+        </span>
+    <?php endif; ?>
+</div>

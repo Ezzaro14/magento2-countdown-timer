@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <ezzar_countdown>
+            <general>
+                <enabled>1</enabled>
+                <label>Big Winter Sale ends in</label>
+                <end_at>2046-06-21 23:59:59</end_at>
+                <link_url>#</link_url>
+            </general>
+        </ezzar_countdown>
+    </default>
+</config>

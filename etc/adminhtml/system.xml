@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+
+        <tab id="ezzar" translate="label" sortOrder="900">
+            <label>Ezzar</label>
+        </tab>
+
+        <section id="ezzar_countdown" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Countdown Timer</label>
+            <tab>ezzar</tab>
+            <resource>Ezzar_CountdownTimer::config</resource>
+
+            <group id="general" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="label" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Banner Text</label>
+                </field>
+
+                <field id="end_at" translate="label" type="date" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>End Date/Time</label>
+                    <frontend_model>Ezzar\CountdownTimer\Block\DatePicker</frontend_model>
+                </field>
+
+
+                <field id="link_url" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Link URL</label>
+                </field>
+
+            </group>
+        </section>
+
+    </system>
+</config>
