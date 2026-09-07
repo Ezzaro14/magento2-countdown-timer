@@ -2,6 +2,10 @@
 
 `Ezzar_CountdownTimer` adds a configurable countdown notification banner to Magento 2 Hyva storefronts using Alpine.js and Hyva Heroicons.
 
+<img width="819" height="326" alt="image" src="https://github.com/user-attachments/assets/5c66281b-abfe-4002-aa81-4105ceae8ba6" />
+<img width="1064" height="108" alt="image" src="https://github.com/user-attachments/assets/fc04133e-3401-4cbb-bd4f-4512cc9c62fb" />
+
+
 ## Requirements
 
 - Magento Open Source or Adobe Commerce 2.4.x
